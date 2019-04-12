@@ -1,0 +1,19 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP LM74610
+F http://www.ti.com/lit/ds/symlink/lm74610-q1.pdf
+$ENDCMP
+#
+$CMP MAX17502E
+F https://datasheets.maximintegrated.com/en/ds/MAX17502.pdf
+$ENDCMP
+#
+$CMP SI5448DU
+F http://www.vishay.com/docs/76149/si5448du.pdf
+$ENDCMP
+#
+$CMP TMC2130
+F https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2130_datasheet.pdf
+$ENDCMP
+#
+#End Doc Library
