@@ -34,8 +34,12 @@ void temp_update_task() {
                 }
 
                 if (data->m_output > 100 && data->m_output > (now - data->m_window_start)) {
+                    data->m_active = true;
+                    xSemaphoreGive(data->m_change);
                     gpio_set_level(data->pin_relay, 1);
                 } else {
+                    data->m_active = false;
+                    xSemaphoreGive(data->m_change);
                     gpio_set_level(data->pin_relay, 0);
                 }
             } else {

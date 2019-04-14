@@ -1,0 +1,219 @@
+EESchema Schematic File Version 4
+LIBS:switch-cache
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector_Generic:Conn_01x03 J?
+U 1 1 5CB2A3D6
+P 1100 1200
+F 0 "J?" H 1018 875 50  0000 C CNN
+F 1 "Conn_01x03" H 1018 966 50  0000 C CNN
+F 2 "local:PhoenixContact-1017515" H 1100 1200 50  0001 C CNN
+F 3 "~" H 1100 1200 50  0001 C CNN
+	1    1100 1200
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x03 J?
+U 1 1 5CB2B7B3
+P 1100 1825
+F 0 "J?" H 1018 1500 50  0000 C CNN
+F 1 "Conn_01x03" H 1018 1591 50  0000 C CNN
+F 2 "local:PhoenixContact-1017515" H 1100 1825 50  0001 C CNN
+F 3 "~" H 1100 1825 50  0001 C CNN
+	1    1100 1825
+	-1   0    0    1   
+$EndComp
+$Comp
+L local:HLK-PM03 U?
+U 1 1 5CB2CE23
+P 2150 1475
+F 0 "U?" H 2150 1823 40  0000 C CNN
+F 1 "HLK-PM03" H 2150 1747 40  0000 C CNN
+F 2 "local:HLK-PM03" H 2150 1656 60  0000 C CNN
+F 3 "" H 1250 2825 60  0000 C CNN
+	1    2150 1475
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1300 1300 1425 1300
+Wire Wire Line
+	1425 1300 1425 1200
+Wire Wire Line
+	1425 1200 1300 1200
+Wire Wire Line
+	1300 1100 1500 1100
+Wire Wire Line
+	1500 1100 1500 1425
+Wire Wire Line
+	1500 1925 1300 1925
+Wire Wire Line
+	1300 1725 1425 1725
+Wire Wire Line
+	1425 1725 1425 1775
+Wire Wire Line
+	1425 1825 1300 1825
+Wire Wire Line
+	1850 1425 1500 1425
+Connection ~ 1500 1425
+Wire Wire Line
+	1500 1425 1500 1925
+Wire Wire Line
+	1850 1525 1575 1525
+Wire Wire Line
+	1575 1525 1575 1775
+Wire Wire Line
+	1575 1775 1425 1775
+Connection ~ 1425 1775
+Wire Wire Line
+	1425 1775 1425 1825
+$Comp
+L power:GND #PWR?
+U 1 1 5CB2FAFF
+P 2525 1625
+F 0 "#PWR?" H 2525 1375 50  0001 C CNN
+F 1 "GND" H 2530 1452 50  0000 C CNN
+F 2 "" H 2525 1625 50  0001 C CNN
+F 3 "" H 2525 1625 50  0001 C CNN
+	1    2525 1625
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 1525 2525 1525
+Wire Wire Line
+	2525 1525 2525 1625
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5CB305D0
+P 2600 1425
+F 0 "#PWR?" H 2600 1275 50  0001 C CNN
+F 1 "+3.3V" V 2615 1553 50  0000 L CNN
+F 2 "" H 2600 1425 50  0001 C CNN
+F 3 "" H 2600 1425 50  0001 C CNN
+	1    2600 1425
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2450 1425 2600 1425
+$Comp
+L local:ESP32-WROOM U?
+U 1 1 5CB31075
+P 3125 3725
+F 0 "U?" H 3100 5112 60  0000 C CNN
+F 1 "ESP32-WROOM" H 3100 5006 60  0000 C CNN
+F 2 "ESP32-footprints-Lib:ESP32-WROOM" H 3475 5075 60  0001 C CNN
+F 3 "" H 2675 4175 60  0001 C CNN
+	1    3125 3725
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 5CB312A5
+P 2050 3000
+F 0 "#PWR?" H 2050 2850 50  0001 C CNN
+F 1 "+3.3V" H 2065 3173 50  0000 C CNN
+F 2 "" H 2050 3000 50  0001 C CNN
+F 3 "" H 2050 3000 50  0001 C CNN
+	1    2050 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2050 3000 2050 3125
+Wire Wire Line
+	2050 3225 2175 3225
+Wire Wire Line
+	2175 3125 2050 3125
+Connection ~ 2050 3125
+Wire Wire Line
+	2050 3125 2050 3225
+$Comp
+L power:GND #PWR?
+U 1 1 5CB3265E
+P 4100 4500
+F 0 "#PWR?" H 4100 4250 50  0001 C CNN
+F 1 "GND" H 4105 4327 50  0000 C CNN
+F 2 "" H 4100 4500 50  0001 C CNN
+F 3 "" H 4100 4500 50  0001 C CNN
+	1    4100 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5CB33636
+P 2100 4925
+F 0 "#PWR?" H 2100 4675 50  0001 C CNN
+F 1 "GND" H 2105 4752 50  0000 C CNN
+F 2 "" H 2100 4925 50  0001 C CNN
+F 3 "" H 2100 4925 50  0001 C CNN
+	1    2100 4925
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2175 4425 2100 4425
+Wire Wire Line
+	2100 4425 2100 4850
+Wire Wire Line
+	2675 4775 2675 4850
+Wire Wire Line
+	2675 4850 2100 4850
+Connection ~ 2100 4850
+Wire Wire Line
+	2100 4850 2100 4925
+Wire Wire Line
+	4025 4275 4100 4275
+Wire Wire Line
+	4100 4275 4100 4375
+Wire Wire Line
+	4025 4375 4100 4375
+Connection ~ 4100 4375
+Wire Wire Line
+	4100 4375 4100 4500
+Text GLabel 4275 3175 2    50   Input ~ 0
+TXD0
+Text GLabel 4275 3275 2    50   Input ~ 0
+RXD0
+Wire Wire Line
+	4025 3175 4275 3175
+Wire Wire Line
+	4025 3275 4275 3275
+$Comp
+L Connector:Screw_Terminal_01x02 J?
+U 1 1 5CB455F2
+P 1675 4125
+F 0 "J?" H 1593 3800 50  0000 C CNN
+F 1 "Screw_Terminal_01x02" H 1593 3891 50  0000 C CNN
+F 2 "" H 1675 4125 50  0001 C CNN
+F 3 "~" H 1675 4125 50  0001 C CNN
+	1    1675 4125
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2175 4025 1875 4025
+$Comp
+L power:GND #PWR?
+U 1 1 5CB4869B
+P 1975 4225
+F 0 "#PWR?" H 1975 3975 50  0001 C CNN
+F 1 "GND" H 1980 4052 50  0000 C CNN
+F 2 "" H 1975 4225 50  0001 C CNN
+F 3 "" H 1975 4225 50  0001 C CNN
+	1    1975 4225
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1875 4125 1975 4125
+Wire Wire Line
+	1975 4125 1975 4225
+$EndSCHEMATC

@@ -2,6 +2,22 @@
 #include "temp_controller.h"
 #include "mqtt.h"
 #include "register.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+void process_interrupt_task(void *pvParam) {
+    TempNode* node = (TempNode *)pvParam;
+
+    while (1) {
+        xSemaphoreTake(node->driver->m_change, portMAX_DELAY);
+
+        if (node->driver->m_active) {
+            mqtt_node_publish(node->code, "/on", "", 0);
+        } else {
+            mqtt_node_publish(node->code, "/off", "", 0);
+        }
+    }
+}
 
 void to_string(void* node, char* buff, uint16_t* offset) {
     TempNode* tmp = (TempNode*)node;
@@ -76,6 +92,7 @@ void node_temp_init(TempController* temp, char code) {
     TempNode* node = malloc(sizeof(TempNode));
     node->code = code;
     node->driver = temp;
+    xTaskCreate(process_interrupt_task, "interrupt", 2048, NULL, 10, node->m_conn);
 
     NodeDescription* des = malloc(sizeof(NodeDescription));
 

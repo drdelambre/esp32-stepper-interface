@@ -2,6 +2,8 @@
 
 #include "pid.h"
 #include "driver/spi_master.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 typedef struct temp_con {
     uint8_t pin_cs;
@@ -17,6 +19,8 @@ typedef struct temp_con {
     double m_current_rate;      // measured rate of increase in degC/sec
 
     spi_device_handle_t m_interface;
+    SemaphoreHandle_t m_change;
+    bool m_active;
     uint8_t m_enabled;
     double m_output;
     int64_t m_last_read;
