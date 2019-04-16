@@ -1,0 +1,775 @@
+EESchema Schematic File Version 4
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 14
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Sheet
+S 2300 975  775  350 
+U 5CBA67D4
+F0 "cell 12" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 1050 50 
+F3 "BALANCE" I R 3075 1150 50 
+F4 "SENSE-" I R 3075 1250 50 
+F5 "CELL+" I L 2300 1050 50 
+F6 "CELL-" I L 2300 1250 50 
+$EndSheet
+$Sheet
+S 2300 1525 775  350 
+U 5CBB3B98
+F0 "cell 11" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 1600 50 
+F3 "BALANCE" I R 3075 1700 50 
+F4 "SENSE-" I R 3075 1800 50 
+F5 "CELL+" I L 2300 1600 50 
+F6 "CELL-" I L 2300 1800 50 
+$EndSheet
+$Sheet
+S 2300 2075 775  350 
+U 5CBB4127
+F0 "cell 10" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 2150 50 
+F3 "BALANCE" I R 3075 2250 50 
+F4 "SENSE-" I R 3075 2350 50 
+F5 "CELL+" I L 2300 2150 50 
+F6 "CELL-" I L 2300 2350 50 
+$EndSheet
+$Sheet
+S 2300 2625 775  350 
+U 5CBB412E
+F0 "cell 09" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 2700 50 
+F3 "BALANCE" I R 3075 2800 50 
+F4 "SENSE-" I R 3075 2900 50 
+F5 "CELL+" I L 2300 2700 50 
+F6 "CELL-" I L 2300 2900 50 
+$EndSheet
+$Sheet
+S 2300 3175 775  350 
+U 5CBB4633
+F0 "cell 08" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 3250 50 
+F3 "BALANCE" I R 3075 3350 50 
+F4 "SENSE-" I R 3075 3450 50 
+F5 "CELL+" I L 2300 3250 50 
+F6 "CELL-" I L 2300 3450 50 
+$EndSheet
+$Sheet
+S 2300 3725 775  350 
+U 5CBB463A
+F0 "cell 07" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 3800 50 
+F3 "BALANCE" I R 3075 3900 50 
+F4 "SENSE-" I R 3075 4000 50 
+F5 "CELL+" I L 2300 3800 50 
+F6 "CELL-" I L 2300 4000 50 
+$EndSheet
+$Sheet
+S 2300 4275 775  350 
+U 5CBB4641
+F0 "cell 06" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 4350 50 
+F3 "BALANCE" I R 3075 4450 50 
+F4 "SENSE-" I R 3075 4550 50 
+F5 "CELL+" I L 2300 4350 50 
+F6 "CELL-" I L 2300 4550 50 
+$EndSheet
+$Sheet
+S 2300 4800 775  350 
+U 5CBB6FB3
+F0 "cell 05" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 4875 50 
+F3 "BALANCE" I R 3075 4975 50 
+F4 "SENSE-" I R 3075 5075 50 
+F5 "CELL+" I L 2300 4875 50 
+F6 "CELL-" I L 2300 5075 50 
+$EndSheet
+$Sheet
+S 2300 5350 775  350 
+U 5CBB6FBA
+F0 "cell 04" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 5425 50 
+F3 "BALANCE" I R 3075 5525 50 
+F4 "SENSE-" I R 3075 5625 50 
+F5 "CELL+" I L 2300 5425 50 
+F6 "CELL-" I L 2300 5625 50 
+$EndSheet
+$Sheet
+S 2300 5900 775  350 
+U 5CBB6FC1
+F0 "cell 03" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 5975 50 
+F3 "BALANCE" I R 3075 6075 50 
+F4 "SENSE-" I R 3075 6175 50 
+F5 "CELL+" I L 2300 5975 50 
+F6 "CELL-" I L 2300 6175 50 
+$EndSheet
+$Sheet
+S 2300 6450 775  350 
+U 5CBB6FC8
+F0 "cell 02" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 6525 50 
+F3 "BALANCE" I R 3075 6625 50 
+F4 "SENSE-" I R 3075 6725 50 
+F5 "CELL+" I L 2300 6525 50 
+F6 "CELL-" I L 2300 6725 50 
+$EndSheet
+$Sheet
+S 2300 7000 775  350 
+U 5CBB6FCF
+F0 "cell 01" 50
+F1 "cell.sch" 50
+F2 "SENSE+" I R 3075 7075 50 
+F3 "BALANCE" I R 3075 7175 50 
+F4 "SENSE-" I R 3075 7275 50 
+F5 "CELL+" I L 2300 7075 50 
+F6 "CELL-" I L 2300 7275 50 
+$EndSheet
+Wire Wire Line
+	2300 1250 2200 1250
+Wire Wire Line
+	2200 1250 2200 1600
+Wire Wire Line
+	2200 1600 2300 1600
+Wire Wire Line
+	2300 1800 2200 1800
+Wire Wire Line
+	2200 1800 2200 2150
+Wire Wire Line
+	2200 2150 2300 2150
+Wire Wire Line
+	2300 2350 2200 2350
+Wire Wire Line
+	2200 2350 2200 2700
+Wire Wire Line
+	2200 2700 2300 2700
+Wire Wire Line
+	2300 2900 2200 2900
+Wire Wire Line
+	2200 2900 2200 3250
+Wire Wire Line
+	2200 3250 2300 3250
+Wire Wire Line
+	2300 3450 2200 3450
+Wire Wire Line
+	2200 3450 2200 3800
+Wire Wire Line
+	2200 3800 2300 3800
+Wire Wire Line
+	2300 4000 2200 4000
+Wire Wire Line
+	2200 4000 2200 4350
+Wire Wire Line
+	2200 4350 2300 4350
+Wire Wire Line
+	2300 4550 2200 4550
+Wire Wire Line
+	2200 4550 2200 4875
+Wire Wire Line
+	2200 4875 2300 4875
+Wire Wire Line
+	2300 5075 2200 5075
+Wire Wire Line
+	2200 5075 2200 5425
+Wire Wire Line
+	2200 5425 2300 5425
+Wire Wire Line
+	2300 5625 2200 5625
+Wire Wire Line
+	2200 5625 2200 5975
+Wire Wire Line
+	2200 5975 2300 5975
+Wire Wire Line
+	2300 6175 2200 6175
+Wire Wire Line
+	2200 6175 2200 6525
+Wire Wire Line
+	2200 6525 2300 6525
+Wire Wire Line
+	2300 6725 2200 6725
+Wire Wire Line
+	2200 6725 2200 7075
+Wire Wire Line
+	2200 7075 2300 7075
+$Comp
+L Connector:Conn_01x13_Female J?
+U 1 1 5CBBA3C8
+P 725 1650
+F 0 "J?" H 617 825 50  0000 C CNN
+F 1 "Conn_01x13_Female" H 617 916 50  0000 C CNN
+F 2 "Connectors_JST:JST_XH_S13B-XH-A_13x2.50mm_Angled" H 725 1650 50  0001 C CNN
+F 3 "~" H 725 1650 50  0001 C CNN
+	1    725  1650
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2300 1050 925  1050
+Wire Wire Line
+	2200 1600 2025 1600
+Wire Wire Line
+	2025 1600 2025 1150
+Wire Wire Line
+	2025 1150 925  1150
+Connection ~ 2200 1600
+Wire Wire Line
+	2200 2150 1975 2150
+Wire Wire Line
+	1975 2150 1975 1250
+Wire Wire Line
+	1975 1250 925  1250
+Connection ~ 2200 2150
+Wire Wire Line
+	2200 2700 1925 2700
+Wire Wire Line
+	1925 2700 1925 1350
+Wire Wire Line
+	1925 1350 925  1350
+Connection ~ 2200 2700
+Wire Wire Line
+	2200 3250 1875 3250
+Wire Wire Line
+	1875 3250 1875 1450
+Wire Wire Line
+	1875 1450 925  1450
+Connection ~ 2200 3250
+Wire Wire Line
+	2200 3800 1825 3800
+Wire Wire Line
+	1825 3800 1825 1550
+Wire Wire Line
+	1825 1550 925  1550
+Connection ~ 2200 3800
+Wire Wire Line
+	2200 4350 1775 4350
+Wire Wire Line
+	1775 4350 1775 1650
+Wire Wire Line
+	1775 1650 925  1650
+Connection ~ 2200 4350
+Wire Wire Line
+	2200 4875 1725 4875
+Wire Wire Line
+	1725 4875 1725 1750
+Wire Wire Line
+	1725 1750 925  1750
+Connection ~ 2200 4875
+Wire Wire Line
+	2200 5425 1675 5425
+Wire Wire Line
+	1675 5425 1675 1850
+Wire Wire Line
+	1675 1850 925  1850
+Connection ~ 2200 5425
+Wire Wire Line
+	2200 5975 1625 5975
+Wire Wire Line
+	1625 5975 1625 1950
+Wire Wire Line
+	1625 1950 925  1950
+Connection ~ 2200 5975
+Wire Wire Line
+	2200 6525 1575 6525
+Wire Wire Line
+	1575 6525 1575 2050
+Wire Wire Line
+	1575 2050 925  2050
+Connection ~ 2200 6525
+Wire Wire Line
+	2200 7075 1525 7075
+Wire Wire Line
+	1525 7075 1525 2150
+Wire Wire Line
+	1525 2150 925  2150
+Connection ~ 2200 7075
+Wire Wire Line
+	2300 7275 2200 7275
+Wire Wire Line
+	1475 7275 1475 2250
+Wire Wire Line
+	1475 2250 925  2250
+$Comp
+L Device:R R?
+U 1 1 5CC02D2D
+P 2700 7675
+F 0 "R?" V 2493 7675 50  0000 C CNN
+F 1 "100R" V 2584 7675 50  0000 C CNN
+F 2 "" V 2630 7675 50  0001 C CNN
+F 3 "~" H 2700 7675 50  0001 C CNN
+	1    2700 7675
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	2200 7275 2200 7675
+Wire Wire Line
+	2200 7675 2550 7675
+Connection ~ 2200 7275
+Wire Wire Line
+	2200 7275 1475 7275
+Wire Wire Line
+	3075 7275 3175 7275
+Wire Wire Line
+	3175 7275 3175 7675
+Wire Wire Line
+	3175 7675 2850 7675
+$Comp
+L Device:C C?
+U 1 1 5CC079F9
+P 3475 7675
+F 0 "C?" V 3223 7675 50  0000 C CNN
+F 1 "0.1u/50V" V 3314 7675 50  0000 C CNN
+F 2 "" H 3513 7525 50  0001 C CNN
+F 3 "~" H 3475 7675 50  0001 C CNN
+	1    3475 7675
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3175 7675 3325 7675
+Connection ~ 3175 7675
+$Comp
+L power:-VDC #PWR?
+U 1 1 5CC0A94A
+P 3850 7675
+F 0 "#PWR?" H 3850 7575 50  0001 C CNN
+F 1 "-VDC" V 3850 7905 50  0000 L CNN
+F 2 "" H 3850 7675 50  0001 C CNN
+F 3 "" H 3850 7675 50  0001 C CNN
+	1    3850 7675
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3625 7675 3850 7675
+Wire Wire Line
+	3075 7075 3175 7075
+Wire Wire Line
+	3175 7075 3175 6925
+Wire Wire Line
+	3175 6725 3075 6725
+Wire Wire Line
+	3075 6525 3175 6525
+Wire Wire Line
+	3175 6525 3175 6375
+Wire Wire Line
+	3175 6175 3075 6175
+Wire Wire Line
+	3075 5975 3175 5975
+Wire Wire Line
+	3175 5975 3175 5800
+Wire Wire Line
+	3175 5625 3075 5625
+Wire Wire Line
+	3075 5425 3175 5425
+Wire Wire Line
+	3175 5425 3175 5250
+Wire Wire Line
+	3175 5075 3075 5075
+Wire Wire Line
+	3075 4875 3175 4875
+Wire Wire Line
+	3175 4875 3175 4725
+Wire Wire Line
+	3175 4550 3075 4550
+Wire Wire Line
+	3075 4350 3175 4350
+Wire Wire Line
+	3175 4350 3175 4175
+Wire Wire Line
+	3175 4000 3075 4000
+Wire Wire Line
+	3075 3800 3175 3800
+Wire Wire Line
+	3175 3800 3175 3625
+Wire Wire Line
+	3175 3450 3075 3450
+Wire Wire Line
+	3075 3250 3175 3250
+Wire Wire Line
+	3175 3250 3175 3075
+Wire Wire Line
+	3175 2900 3075 2900
+Wire Wire Line
+	3075 2700 3175 2700
+Wire Wire Line
+	3175 2700 3175 2525
+Wire Wire Line
+	3175 2350 3075 2350
+Wire Wire Line
+	3075 2150 3175 2150
+Wire Wire Line
+	3175 2150 3175 1975
+Wire Wire Line
+	3175 1800 3075 1800
+Wire Wire Line
+	3075 1600 3175 1600
+Wire Wire Line
+	3175 1600 3175 1425
+Wire Wire Line
+	3175 1250 3075 1250
+Wire Wire Line
+	4225 1850 4075 1850
+Wire Wire Line
+	4075 1850 4075 1050
+Wire Wire Line
+	4075 1050 3075 1050
+Wire Wire Line
+	4225 1950 4025 1950
+Wire Wire Line
+	4025 1950 4025 1150
+Wire Wire Line
+	4025 1150 3075 1150
+Wire Wire Line
+	4225 2050 3975 2050
+Wire Wire Line
+	3975 2050 3975 1425
+Wire Wire Line
+	3975 1425 3175 1425
+Connection ~ 3175 1425
+Wire Wire Line
+	3175 1425 3175 1250
+Wire Wire Line
+	4225 2150 3925 2150
+Wire Wire Line
+	3925 2150 3925 1700
+Wire Wire Line
+	3925 1700 3075 1700
+Wire Wire Line
+	4225 2250 3875 2250
+Wire Wire Line
+	3875 2250 3875 1975
+Wire Wire Line
+	3875 1975 3175 1975
+Connection ~ 3175 1975
+Wire Wire Line
+	3175 1975 3175 1800
+Wire Wire Line
+	4225 2350 3825 2350
+Wire Wire Line
+	3825 2350 3825 2250
+Wire Wire Line
+	3825 2250 3075 2250
+Wire Wire Line
+	4225 4250 4175 4250
+Wire Wire Line
+	4175 4250 4175 7275
+Wire Wire Line
+	4175 7275 3175 7275
+Connection ~ 3175 7275
+Wire Wire Line
+	4225 4150 4125 4150
+Wire Wire Line
+	4125 4150 4125 7175
+Wire Wire Line
+	4125 7175 3075 7175
+Wire Wire Line
+	4225 4050 4075 4050
+Wire Wire Line
+	4075 4050 4075 6925
+Wire Wire Line
+	4075 6925 3175 6925
+Connection ~ 3175 6925
+Wire Wire Line
+	3175 6925 3175 6725
+Wire Wire Line
+	3075 6625 4025 6625
+Wire Wire Line
+	4025 6625 4025 3950
+Wire Wire Line
+	4025 3950 4225 3950
+Wire Wire Line
+	4225 3850 3975 3850
+Wire Wire Line
+	3975 3850 3975 6375
+Wire Wire Line
+	3975 6375 3175 6375
+Connection ~ 3175 6375
+Wire Wire Line
+	3175 6375 3175 6175
+Wire Wire Line
+	4225 3750 3925 3750
+Wire Wire Line
+	3925 3750 3925 6075
+Wire Wire Line
+	3925 6075 3075 6075
+Wire Wire Line
+	3175 5800 3875 5800
+Wire Wire Line
+	3875 5800 3875 3650
+Wire Wire Line
+	3875 3650 4225 3650
+Connection ~ 3175 5800
+Wire Wire Line
+	3175 5800 3175 5625
+Wire Wire Line
+	4225 3550 3825 3550
+Wire Wire Line
+	3825 3550 3825 5525
+Wire Wire Line
+	3825 5525 3075 5525
+Wire Wire Line
+	3175 5250 3775 5250
+Wire Wire Line
+	3775 5250 3775 3450
+Wire Wire Line
+	3775 3450 4225 3450
+Connection ~ 3175 5250
+Wire Wire Line
+	3175 5250 3175 5075
+Wire Wire Line
+	4225 3350 3725 3350
+Wire Wire Line
+	3725 3350 3725 4975
+Wire Wire Line
+	3725 4975 3075 4975
+Wire Wire Line
+	3175 4725 3675 4725
+Wire Wire Line
+	3675 4725 3675 3250
+Wire Wire Line
+	3675 3250 4225 3250
+Connection ~ 3175 4725
+Wire Wire Line
+	3175 4725 3175 4550
+Wire Wire Line
+	4225 3150 3625 3150
+Wire Wire Line
+	3625 3150 3625 4450
+Wire Wire Line
+	3625 4450 3075 4450
+Wire Wire Line
+	3175 4175 3575 4175
+Wire Wire Line
+	3575 4175 3575 3050
+Wire Wire Line
+	3575 3050 4225 3050
+Connection ~ 3175 4175
+Wire Wire Line
+	3175 4175 3175 4000
+Wire Wire Line
+	4225 2950 3525 2950
+Wire Wire Line
+	3525 2950 3525 3900
+Wire Wire Line
+	3525 3900 3075 3900
+Wire Wire Line
+	3175 3625 3475 3625
+Wire Wire Line
+	3475 3625 3475 2850
+Wire Wire Line
+	3475 2850 4225 2850
+Connection ~ 3175 3625
+Wire Wire Line
+	3175 3625 3175 3450
+Wire Wire Line
+	4225 2750 3425 2750
+Wire Wire Line
+	3425 2750 3425 3350
+Wire Wire Line
+	3425 3350 3075 3350
+Wire Wire Line
+	3175 3075 3375 3075
+Wire Wire Line
+	3375 3075 3375 2650
+Wire Wire Line
+	3375 2650 4225 2650
+Connection ~ 3175 3075
+Wire Wire Line
+	3175 3075 3175 2900
+Wire Wire Line
+	4225 2550 3325 2550
+Wire Wire Line
+	3325 2550 3325 2800
+Wire Wire Line
+	3325 2800 3075 2800
+Wire Wire Line
+	4225 2450 3275 2450
+Wire Wire Line
+	3275 2450 3275 2525
+Wire Wire Line
+	3275 2525 3175 2525
+Connection ~ 3175 2525
+Wire Wire Line
+	3175 2525 3175 2350
+Text HLabel 6000 2350 2    50   Input ~ 0
+CS1
+Text HLabel 6000 2050 2    50   Input ~ 0
+MISO
+Text HLabel 6000 2150 2    50   Input ~ 0
+MOSI
+Text HLabel 6000 2250 2    50   Input ~ 0
+SCLK
+$Comp
+L local:LTC6811-2 U?
+U 1 1 5CDA4BA6
+P 4775 2850
+F 0 "U?" H 4775 4315 50  0000 C CNN
+F 1 "LTC6811-2" H 4775 4224 50  0000 C CNN
+F 2 "Housings_SSOP:SSOP-48_7.5x15.9mm_Pitch0.635mm" H 4575 3500 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/68111fb.pdf" H 4575 3500 50  0001 C CNN
+	1    4775 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5325 3650 5550 3650
+Wire Wire Line
+	5550 3650 5550 3750
+Wire Wire Line
+	5550 4250 5325 4250
+Wire Wire Line
+	5325 4150 5550 4150
+Connection ~ 5550 4150
+Wire Wire Line
+	5550 4150 5550 4250
+Wire Wire Line
+	5325 3950 5550 3950
+Connection ~ 5550 3950
+Wire Wire Line
+	5550 3950 5550 4150
+Wire Wire Line
+	5325 3850 5550 3850
+Connection ~ 5550 3850
+Wire Wire Line
+	5550 3850 5550 3950
+Wire Wire Line
+	5325 3750 5550 3750
+Connection ~ 5550 3750
+Wire Wire Line
+	5550 3750 5550 3850
+$Comp
+L power:-VDC #PWR?
+U 1 1 5CE2AB16
+P 5550 4425
+F 0 "#PWR?" H 5550 4325 50  0001 C CNN
+F 1 "-VDC" H 5550 4700 50  0000 C CNN
+F 2 "" H 5550 4425 50  0001 C CNN
+F 3 "" H 5550 4425 50  0001 C CNN
+	1    5550 4425
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5550 4250 5550 4425
+Connection ~ 5550 4250
+$Comp
+L Device:C C?
+U 1 1 5CE36850
+P 4875 1125
+F 0 "C?" V 5127 1125 50  0000 C CNN
+F 1 "0.1u/50V" V 5036 1125 50  0000 C CNN
+F 2 "" H 4913 975 50  0001 C CNN
+F 3 "~" H 4875 1125 50  0001 C CNN
+	1    4875 1125
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:-VDC #PWR?
+U 1 1 5CE38124
+P 4525 1125
+F 0 "#PWR?" H 4525 1025 50  0001 C CNN
+F 1 "-VDC" V 4525 1354 50  0000 L CNN
+F 2 "" H 4525 1125 50  0001 C CNN
+F 3 "" H 4525 1125 50  0001 C CNN
+	1    4525 1125
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4525 1125 4725 1125
+$Comp
+L Device:R R?
+U 1 1 5CE43472
+P 5350 1125
+F 0 "R?" V 5143 1125 50  0000 C CNN
+F 1 "100R" V 5234 1125 50  0000 C CNN
+F 2 "" V 5280 1125 50  0001 C CNN
+F 3 "~" H 5350 1125 50  0001 C CNN
+	1    5350 1125
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	5025 1125 5125 1125
+$Comp
+L Device:D_Zener D?
+U 1 1 5CE4F65E
+P 5350 825
+F 0 "D?" H 5350 609 50  0000 C CNN
+F 1 "CMHZ5365B TR" H 5350 700 50  0000 C CNN
+F 2 "" H 5350 825 50  0001 C CNN
+F 3 "~" H 5350 825 50  0001 C CNN
+	1    5350 825 
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:L_Core_Ferrite L?
+U 1 1 5CE52DE2
+P 5900 1125
+F 0 "L?" V 6125 1125 50  0000 C CNN
+F 1 "L_Core_Ferrite" V 6034 1125 50  0000 C CNN
+F 2 "" H 5900 1125 50  0001 C CNN
+F 3 "~" H 5900 1125 50  0001 C CNN
+	1    5900 1125
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5750 1125 5600 1125
+Wire Wire Line
+	5500 825  5600 825 
+Wire Wire Line
+	5600 825  5600 1125
+Connection ~ 5600 1125
+Wire Wire Line
+	5600 1125 5500 1125
+$Comp
+L power:GND #PWR?
+U 1 1 5CE6B01D
+P 4750 825
+F 0 "#PWR?" H 4750 575 50  0001 C CNN
+F 1 "GND" V 4755 697 50  0000 R CNN
+F 2 "" H 4750 825 50  0001 C CNN
+F 3 "" H 4750 825 50  0001 C CNN
+	1    4750 825 
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5200 825  4750 825 
+$Comp
+L power:VDD #PWR?
+U 1 1 5CE8761F
+P 6150 1125
+F 0 "#PWR?" H 6150 975 50  0001 C CNN
+F 1 "VDD" V 6167 1253 50  0000 L CNN
+F 2 "" H 6150 1125 50  0001 C CNN
+F 3 "" H 6150 1125 50  0001 C CNN
+	1    6150 1125
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6150 1125 6050 1125
+Wire Wire Line
+	5125 1125 5125 1325
+Wire Wire Line
+	5125 1325 4125 1325
+Wire Wire Line
+	4125 1325 4125 1650
+Wire Wire Line
+	4125 1650 4225 1650
+Connection ~ 5125 1125
+Wire Wire Line
+	5125 1125 5200 1125
+$EndSCHEMATC

@@ -4,6 +4,10 @@ $CMP LM74610
 F http://www.ti.com/lit/ds/symlink/lm74610-q1.pdf
 $ENDCMP
 #
+$CMP LTC6811-2
+F https://www.analog.com/media/en/technical-documentation/data-sheets/68111fb.pdf
+$ENDCMP
+#
 $CMP MAX17502E
 F https://datasheets.maximintegrated.com/en/ds/MAX17502.pdf
 $ENDCMP
