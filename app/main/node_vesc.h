@@ -1,6 +1,6 @@
 /**************************************************************************\
 
-    @file     switch_driver.h
+    @file     node_vesc.h
     @author   drdelambre
 
     @section LICENSE
@@ -36,24 +36,26 @@
 
 #pragma once
 
+#include "vesc_driver.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef enum {
-    CLOSED = 0,
-    OPEN = 1
-} ToggleState;
+typedef struct vesc_node {
+    char code;
+    VescDriver* driver;
+} VescNode;
 
-typedef struct SwitchDef {
-    uint8_t pin_switch;
-
-    ToggleState state;
-} Switch;
-
-void switch_open(Switch* device);
-void switch_close(Switch* device);
-void switch_init(Switch* device);
+/**
+ * Initialize the driver and register it as a node
+ *
+ * @param dev Pointer to the VescDriver device descriptor
+ * @param code A single letter code to differentiate devices on an mqtt client
+ *
+ * @return void
+ */
+void node_vesc_init(VescDriver* dev, char code);
 
 #ifdef __cplusplus
 }
