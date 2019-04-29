@@ -22,17 +22,34 @@ static uint16_t m_json_buff_len;
 
 static void setup_mqtt() {
     char* prefix = fetchNVR("prefix");
+    char* id = fetchNVR("uuid");
+
     if (strlen(prefix)) {
         strcpy(m_prefix, prefix);
     } else {
-        strcpy(m_prefix, fetchNVR("uuid"));
+        strcpy(m_prefix, id);
     }
 
-    // information about the motor controller
+    // information about the device
     esp_mqtt_client_subscribe(client, "/edge_node/info", 1);
 
     strcpy(m_msg_topic, "/");
-    strcat(m_msg_topic, fetchNVR("uuid"));
+    strcat(m_msg_topic, id);
+    strcat(m_msg_topic, "/info");
+    esp_mqtt_client_subscribe(client, m_msg_topic, 1);
+
+    strcpy(m_msg_topic, "/");
+    strcat(m_msg_topic, id);
+    strcat(m_msg_topic, "/prefix");
+    esp_mqtt_client_subscribe(client, m_msg_topic, 1);
+
+    strcpy(m_msg_topic, "/");
+    strcat(m_msg_topic, prefix);
+    strcat(m_msg_topic, "/info");
+    esp_mqtt_client_subscribe(client, m_msg_topic, 1);
+
+    strcpy(m_msg_topic, "/");
+    strcat(m_msg_topic, prefix);
     strcat(m_msg_topic, "/prefix");
     esp_mqtt_client_subscribe(client, m_msg_topic, 1);
 
@@ -56,9 +73,13 @@ void mqtt_unsub(char* topic) {
 }
 
 static void handle_mqtt_evt(esp_mqtt_event_handle_t evt) {
-    char *id = fetchNVR("uuid");
+    char* id = fetchNVR("uuid");
 
-    if (strncmp(evt->topic, "/edge_node/info", evt->topic_len) == 0) {
+    if (
+        (strncmp(evt->topic, "/edge_node/info", evt->topic_len) == 0) ||
+        (evt->topic_len == strlen(id) + 5 && strncmp(&evt->topic[strlen(id) + 1], "/info", evt->topic_len - (strlen(id) + 1)) == 0) ||
+        (evt->topic_len == strlen(m_prefix) + 5 && strncmp(&evt->topic[strlen(m_prefix) + 1], "/info", evt->topic_len - (strlen(m_prefix) + 1)) == 0)
+    ) {
         /*
          * needs to return enough info to allow for system provisioning
          * on /edge_node/info/result
@@ -76,16 +97,35 @@ static void handle_mqtt_evt(esp_mqtt_event_handle_t evt) {
          */
         register_nodes_to_string(m_json_res_buff);
         m_json_buff_len = snprintf(m_json_buff, sizeof(m_json_buff), "{\"id\":\"%s\",\"prefix\":\"%s\",\"nodes\":%s}", id, m_prefix, m_json_res_buff);
-        esp_mqtt_client_publish(client, "/edge_node/info/result", m_json_buff, m_json_buff_len, 0, 0);
+        strncpy(m_msg_topic, evt->topic, evt->topic_len);
+        m_msg_topic[evt->topic_len] = '\0';
+        strcat(m_msg_topic, "/result");
+        esp_mqtt_client_publish(client, m_msg_topic, m_json_buff, m_json_buff_len, 0, 0);
         return;
     }
 
-    if (evt->topic_len == strlen(id) + 8 && strncmp(&evt->topic[strlen(id) + 1], "/prefix", evt->topic_len - (strlen(id) + 1)) == 0) {
+    if (
+        (evt->topic_len == strlen(id) + 8 && strncmp(&evt->topic[strlen(id) + 1], "/prefix", evt->topic_len - (strlen(id) + 1)) == 0) ||
+        (evt->topic_len == strlen(m_prefix) + 8 && strncmp(&evt->topic[strlen(m_prefix) + 1], "/prefix", evt->topic_len - (strlen(m_prefix) + 1)) == 0)
+    ) {
         register_unsub_nodes(m_prefix);
+
+        strcpy(m_msg_topic, "/");
+        strcat(m_msg_topic, m_prefix);
+        strcat(m_msg_topic, "/prefix");
+        esp_mqtt_client_unsubscribe(client, m_msg_topic);
+
         memcpy(m_prefix, evt->data, evt->data_len);
         memcpy(&m_prefix[evt->data_len], "\0", 1);
         putNVR("prefix", m_prefix);
+
+        strcpy(m_msg_topic, "/");
+        strcat(m_msg_topic, m_prefix);
+        strcat(m_msg_topic, "/prefix");
+        esp_mqtt_client_subscribe(client, m_msg_topic, 1);
+
         register_sub_nodes(m_prefix);
+
         return;
     }
 

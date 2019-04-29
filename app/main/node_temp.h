@@ -49,6 +49,7 @@ typedef struct temp_node {
     TempController* driver;
 
     TaskHandle_t m_conn;
+    TaskHandle_t m_conn2;
 } TempNode;
 
 void node_temp_init(TempController* con, char code);

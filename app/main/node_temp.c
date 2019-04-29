@@ -33,6 +33,7 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 \**************************************************************************/
+
 #include "node_temp.h"
 #include "temp_controller.h"
 #include "mqtt.h"
@@ -47,17 +48,41 @@ void process_interrupt_task(void *pvParam) {
         xSemaphoreTake(node->driver->m_change, portMAX_DELAY);
 
         if (node->driver->m_active) {
-            mqtt_node_publish(node->code, "/on", "", 0);
+            mqtt_node_publish(node->code, "/pid/on", "", 0);
         } else {
-            mqtt_node_publish(node->code, "/off", "", 0);
+            mqtt_node_publish(node->code, "/pid/off", "", 0);
         }
+    }
+}
+
+void process_reach_task(void *pvParam) {
+    TempNode* node = (TempNode *)pvParam;
+
+    while (1) {
+        xSemaphoreTake(node->driver->m_reached, portMAX_DELAY);
+
+        mqtt_node_publish(node->code, "/temp/reached", "", 0);
     }
 }
 
 void to_string(void* node, char* buff, uint16_t* offset) {
     TempNode* tmp = (TempNode*)node;
 
-    *offset += sprintf(&buff[*offset], "{\"code\":\"%c\",\"type\":\"temperature\"}", tmp->code);
+    double target = 0.0;
+
+    if (tmp->driver->m_enabled) {
+        target = tmp->driver->m_target;
+    }
+
+    *offset += sprintf(
+        &buff[*offset],
+        "{\"code\":\"%c\",\"type\":\"temperature\",\"set\":%.2f,\"p\":%.2f,\"i\":%.2f,\"d\":%.2f}",
+        tmp->code,
+        ((signed long)(target * 100) * 0.01f),
+        ((signed long)(tmp->driver->pid->kp * 100) * 0.01f),
+        ((signed long)((tmp->driver->pid->ki / (tmp->driver->pid->sample_time / 1000.0)) * 100) * 0.01f),
+        ((signed long)((tmp->driver->pid->kd * (tmp->driver->pid->sample_time / 1000.0)) * 100) * 0.01f)
+    );
 }
 
 void subscribe(char* prefix, void* node) {
@@ -68,12 +93,13 @@ void subscribe(char* prefix, void* node) {
     // a read request for the target and current temperatures from the controller
     mqtt_sub(gen_topic(prefix, _node->code, "/read"));
 
-    // sets the ramp speed of the controller
-    mqtt_sub(gen_topic(prefix, _node->code, "/ramp"));
     // sets the pid variables of the controller
+    // format:   "p:i:d"
     mqtt_sub(gen_topic(prefix, _node->code, "/tune"));
+    // enables the heating element
+    mqtt_sub(gen_topic(prefix, _node->code, "/on"));
     // kills the heating element
-    mqtt_sub(gen_topic(prefix, _node->code, "/disable"));
+    mqtt_sub(gen_topic(prefix, _node->code, "/off"));
 }
 
 void unsubscribe(char* prefix, void* node) {
@@ -81,9 +107,9 @@ void unsubscribe(char* prefix, void* node) {
 
     mqtt_unsub(gen_topic(prefix, _node->code, "/temp"));
     mqtt_unsub(gen_topic(prefix, _node->code, "/read"));
-    mqtt_unsub(gen_topic(prefix, _node->code, "/ramp"));
     mqtt_unsub(gen_topic(prefix, _node->code, "/tune"));
-    mqtt_unsub(gen_topic(prefix, _node->code, "/disable"));
+    mqtt_unsub(gen_topic(prefix, _node->code, "/on"));
+    mqtt_unsub(gen_topic(prefix, _node->code, "/off"));
 }
 
 bool handle(esp_mqtt_event_handle_t evt, char* prefix, void* node) {
@@ -105,15 +131,36 @@ bool handle(esp_mqtt_event_handle_t evt, char* prefix, void* node) {
         return true;
     }
 
-    if (_topic_len == 5 && strncmp(&evt->topic[_prefix_len], "/ramp", _topic_len) == 0) {
-        return true;
-    }
-
     if (_topic_len == 5 && strncmp(&evt->topic[_prefix_len], "/tune", _topic_len) == 0) {
+        char* data[3];
+        uint8_t ni;
+        strncpy(str, evt->data, evt->data_len);
+
+        for (ni = 0; ni < 3; ni++) {
+            if (ni == 0) {
+                data[ni] = strtok(str, ":");
+            } else {
+                data[ni] = strtok(NULL, ":");
+            }
+        }
+
+        pid_tune(
+            atof(data[0]),
+            atof(data[1]),
+            atof(data[2]),
+            _node->driver->pid->POn,
+            _node->driver->pid
+        );
+
         return true;
     }
 
-    if (_topic_len == 8 && strncmp(&evt->topic[_prefix_len], "/disable", _topic_len) == 0) {
+    if (_topic_len == 3 && strncmp(&evt->topic[_prefix_len], "/on", _topic_len) == 0) {
+        temp_enable(_node->driver);
+        return true;
+    }
+
+    if (_topic_len == 4 && strncmp(&evt->topic[_prefix_len], "/off", _topic_len) == 0) {
         temp_disable(_node->driver);
         return true;
     }
@@ -127,7 +174,8 @@ void node_temp_init(TempController* temp, char code) {
     TempNode* node = malloc(sizeof(TempNode));
     node->code = code;
     node->driver = temp;
-    xTaskCreate(process_interrupt_task, "interrupt", 2048, NULL, 10, node->m_conn);
+    xTaskCreate(process_interrupt_task, "interrupt", 2048, node, 10, &node->m_conn);
+    xTaskCreate(process_reach_task, "destination", 2048, node, 10, &node->m_conn2);
 
     NodeDescription* des = malloc(sizeof(NodeDescription));
 

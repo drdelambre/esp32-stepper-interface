@@ -37,8 +37,10 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "vesc_driver.h"
-#include "esp32/rom/crc.h"
+#include "crc16.h"
 #include "driver/uart.h"
+
+#include "esp_log.h"
 
 /** Helper functions for parsing messages **/
 int8_t buffer_get_int8(const uint8_t *buffer, int32_t *index) {
@@ -82,7 +84,7 @@ float buffer_get_float32(const uint8_t *buffer, float scale, int32_t *index) {
 /** End helper functions **/
 
 int send_payload(int uart_num, uint8_t *payload, int len) {
-    uint16_t crc = crc16_be(0, payload, len);
+    uint16_t crc = crc16(payload, len);
     int count = 0;
     uint8_t msg[256];
 
@@ -102,8 +104,22 @@ int send_payload(int uart_num, uint8_t *payload, int len) {
     msg[count++] = (uint8_t)(crc & 0xFF);
     msg[count++] = 3;
 
+    ESP_LOGI("VESC", "SENDING %dbytes: [%02x] [%02x] [%02x %02x %02x %02x %02x] [%02x %02x] [%02x]",
+            count,
+            msg[0],
+            msg[1],
+            msg[2],
+            msg[3],
+            msg[4],
+            msg[5],
+            msg[6],
+            msg[7],
+            msg[8],
+            msg[9]);
+
     //Sending package
-    uart_write_bytes(uart_num, (char*)msg, count);
+    count = uart_write_bytes(uart_num, (const char*)msg, count);
+    ESP_LOGI("VESC", "sent %d", count);
 
     return (0);
 }
@@ -153,9 +169,11 @@ int vesc_read_stats(VescDriver *dev) {
 	assert(rc == 0);
 
 
-	if (xSemaphoreTake(dev->m_read_evt, 500 / portTICK_PERIOD_MS) == pdFALSE) {
+	if (xSemaphoreTake(dev->m_read_evt, 1000 / portTICK_PERIOD_MS) == pdFALSE) {
+        ESP_LOGI("VESC", "timeout");
         return -2;
     }
+    ESP_LOGI("VESC", "info got");
 
 	//rc = parse_stats_packet(itf->rx_data, &dev->stats, );
 
@@ -231,13 +249,19 @@ void uart_event_task(void *pvParam) {
             case UART_DATA:
                 uart_read_bytes(dev->uart_num, &dev->m_uart_buff[dev->m_uart_len], event.size, portMAX_DELAY);
                 dev->m_uart_len += event.size;
+                ESP_LOGI("VESC", "got data %dbytes [%02x](msg) [%02x](len) [%02x](cmd)", event.size,
+                        dev->m_uart_buff[0],
+                        dev->m_uart_buff[1],
+                        dev->m_uart_buff[2]);
 
                 if (dev->m_uart_len > 2 && dev->m_uart_buff[0] == 2) {
                     pkg_len = dev->m_uart_buff[1] + 5;
                     if (pkg_len <= dev->m_uart_len) {
-                        crc = crc16_be(0, dev->m_uart_buff, pkg_len);
+                        ESP_LOGI("VESC", "got before a crc check");
+                        crc = crc16(dev->m_uart_buff, pkg_len);
 
                         if (crc == ((uint16_t) dev->m_uart_buff[pkg_len - 2] << 8 | (uint16_t) dev->m_uart_buff[pkg_len - 1])) {
+                            ESP_LOGI("VESC", "got after a crc check");
                             xSemaphoreGive(dev->m_read_evt);
                             dev->m_uart_len = 0;
                             uart_flush_input(dev->uart_num);
@@ -272,7 +296,7 @@ int vesc_init(VescDriver *dev) {
     dev->m_read_evt = xSemaphoreCreateBinary();
     // const int uart_num = UART_NUM_2;
     uart_config_t uart_config = {
-        .baud_rate = 9600,
+        .baud_rate = 115200,
         .data_bits = UART_DATA_8_BITS,
         .parity = UART_PARITY_DISABLE,
         .stop_bits = UART_STOP_BITS_1,
@@ -283,7 +307,7 @@ int vesc_init(VescDriver *dev) {
 
     ESP_ERROR_CHECK(uart_set_pin(dev->uart_num, dev->pin_tx, dev->pin_rx, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
 
-    ESP_ERROR_CHECK(uart_driver_install(dev->uart_num, 2048, 0, 0, &dev->m_queue_uart, 0));
+    ESP_ERROR_CHECK(uart_driver_install(dev->uart_num, UART_FIFO_LEN + 1024, 0, 20, &dev->m_queue_uart, 0));
     xTaskCreate(uart_event_task, "uart_event_task", 2048, (void*)dev, 12, &dev->m_conn);
 
     return 0;

@@ -31,48 +31,60 @@ void register_nodes_to_string(char *buff) {
     buff[len++] = '\0';
 }
 
+void register_announce(char* prefix) {
+    NodeDescription* data;
+    gll_node_t *curr = m_nodes.first;
+
+    while (curr) {
+        data = (NodeDescription *)curr->data;
+        if (data->init) {
+            data->init(prefix, data->node);
+        }
+
+        curr = curr->next;
+    }
+}
+
 void register_sub_nodes(char* prefix) {
     NodeDescription* data;
     gll_node_t *curr = m_nodes.first;
-    uint16_t ni = 0;
 
-    while (ni < m_nodes.size) {
+    while (curr) {
         data = (NodeDescription *)curr->data;
-        data->sub(prefix, data->node);
+        if (data->sub) {
+            data->sub(prefix, data->node);
+        }
 
         curr = curr->next;
-        ni++;
     }
 }
 
 void register_unsub_nodes(char* prefix) {
     NodeDescription* data;
     gll_node_t *curr = m_nodes.first;
-    uint16_t ni = 0;
 
-    while (ni < m_nodes.size) {
+    while (curr) {
         data = (NodeDescription *)curr->data;
-        data->unsub(prefix, data->node);
+        if (data->unsub) {
+            data->unsub(prefix, data->node);
+        }
 
         curr = curr->next;
-        ni++;
     }
 }
 
 void register_handle_nodes(esp_mqtt_event_handle_t evt, char* prefix) {
     NodeDescription* data;
     gll_node_t *curr = m_nodes.first;
-    uint16_t ni = 0;
 
-    while (ni < m_nodes.size) {
+    while (curr) {
         data = (NodeDescription *)curr->data;
 
-        if(data->handle(evt, prefix, data->node)) {
+        if (data->handle && data->handle(evt, prefix, data->node)) {
             break;
         }
 
         curr = curr->next;
-        ni++;
     }
 }
 
