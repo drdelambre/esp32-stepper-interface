@@ -1,16 +1,17 @@
 #include "esp_system.h"
 #include "esp_timer.h"
+#include "esp_log.h"
 #include "pid.h"
 
 void pid_init(PIDDef* def) {
-    def->m_last_time = esp_timer_get_time() - def->sample_time;
+    def->m_last_time = (esp_timer_get_time() / 1000.0) - def->sample_time;
     def->m_sum = def->min;
 
     pid_tune(def->kp, def->ki, def->kd, def->POn, def);
 }
 
 void pid_calculate(double current, double target, double* output, PIDDef* def) {
-    int64_t now = esp_timer_get_time();
+    int64_t now = esp_timer_get_time() / 1000.0;
     int64_t diff = now - def->m_last_time;
 
     if (diff < def->sample_time) {
@@ -55,9 +56,11 @@ void pid_tune(double kp, double ki, double kd, POMSwitch pon, PIDDef* def) {
         return;
     }
 
+    ESP_LOGI("PID", "Tuned: [%f, %f, %f]", kp, ki, kd);
+
     def->POn = pon;
 
-    double sample_time_sec = def->sample_time / 1000000.0;
+    double sample_time_sec = def->sample_time / 1000.0;
 
     def->kp = kp;
     def->ki = ki * sample_time_sec;

@@ -10,6 +10,7 @@ typedef struct nodedesc {
 
     str_func    to_string;      // serializes a node for the /edge_node/info request
 
+    sub_func    init;           // allows node to publish on initialization
     sub_func    sub;            // registers the node to the mqtt server
     sub_func    unsub;          // unregisters the node from the mqtt server
     handle_func handle;         // handles an mqtt request
@@ -17,6 +18,7 @@ typedef struct nodedesc {
 
 void register_node(NodeDescription* node);
 void register_nodes_to_string(char* buffer);
+void register_announce(char* prefix);
 void register_sub_nodes(char* prefix);
 void register_unsub_nodes(char* prefix);
 void register_handle_nodes(esp_mqtt_event_handle_t evt, char* prefix);

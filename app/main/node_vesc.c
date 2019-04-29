@@ -1,6 +1,6 @@
 /**************************************************************************\
 
-  @file     node_switch.c
+  @file     node_vesc.c
   @author   drdelambre
 
   @section LICENSE
@@ -33,60 +33,78 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 \**************************************************************************/
-#include "node_switch.h"
-#include "switch_driver.h"
-#include "mqtt.h"
+#include "node_vesc.h"
+#include "vesc_driver.h"
 #include "register.h"
-
-void to_string(void* node, char* buff, uint16_t* offset) {
-    SwitchNode* tmp = (SwitchNode*)node;
-
-    *offset += sprintf(&buff[*offset], "{\"code\":\"%c\",\"type\":\"switch\"}", tmp->code);
-}
+#include "mqtt.h"
 
 void subscribe(char* prefix, void* node) {
-    SwitchNode* _node = (SwitchNode*)node;
-
-    // enables the switch
-    mqtt_sub(gen_topic(prefix, _node->code, "/on"));
-
-    // disables the switch
-    mqtt_sub(gen_topic(prefix, _node->code, "/off"));
+    VescNode* _node = (VescNode*)node;
+    mqtt_sub(gen_topic(prefix, _node->code, "/info"));
+    mqtt_sub(gen_topic(prefix, _node->code, "/position"));
+    mqtt_sub(gen_topic(prefix, _node->code, "/duty"));
+    mqtt_sub(gen_topic(prefix, _node->code, "/current"));
+    mqtt_sub(gen_topic(prefix, _node->code, "/rpm"));
 }
 
 void unsubscribe(char* prefix, void* node) {
-    SwitchNode* _node = (SwitchNode*)node;
-
-    mqtt_unsub(gen_topic(prefix, _node->code, "/on"));
-    mqtt_unsub(gen_topic(prefix, _node->code, "/off"));
+    VescNode* _node = (VescNode*)node;
+    mqtt_unsub(gen_topic(prefix, _node->code, "/info"));
+    mqtt_unsub(gen_topic(prefix, _node->code, "/position"));
+    mqtt_unsub(gen_topic(prefix, _node->code, "/duty"));
+    mqtt_unsub(gen_topic(prefix, _node->code, "/current"));
+    mqtt_unsub(gen_topic(prefix, _node->code, "/rpm"));
 }
 
-bool handle(esp_mqtt_event_handle_t evt, char* prefix, void* node) {
-    SwitchNode* _node = (SwitchNode*)node;
 
+bool handle(esp_mqtt_event_handle_t evt, char* prefix, void* node) {
+    VescNode* _node = (VescNode*)node;
     uint16_t _prefix_len = strlen(gen_topic(prefix, _node->code, ""));
     uint16_t _topic_len = evt->topic_len - _prefix_len;
 
-    if (_topic_len == 3 && strncmp(&evt->topic[_prefix_len], "/on", _topic_len) == 0) {
-        switch_open(_node->driver);
+    if (_topic_len == 5 && strncmp(&evt->topic[_prefix_len], "/info", _topic_len) == 0) {
+        vesc_read_stats(_node->driver);
+        // serialize and publish
         return true;
     }
 
-    if (_topic_len == 4 && strncmp(&evt->topic[_prefix_len], "/off", _topic_len) == 0) {
-        switch_close(_node->driver);
+    if (_topic_len == 9 && strncmp(&evt->topic[_prefix_len], "/position", _topic_len) == 0) {
+        vesc_set_position(_node->driver, atof(evt->data));
+        return true;
+    }
+
+    if (_topic_len == 5 && strncmp(&evt->topic[_prefix_len], "/duty", _topic_len) == 0) {
+        vesc_set_duty(_node->driver, atof(evt->data));
+        return true;
+    }
+
+    if (_topic_len == 8 && strncmp(&evt->topic[_prefix_len], "/current", _topic_len) == 0) {
+        vesc_set_current(_node->driver, atof(evt->data));
+        return true;
+    }
+
+    if (_topic_len == 4 && strncmp(&evt->topic[_prefix_len], "/rpm", _topic_len) == 0) {
+        vesc_set_rpm(_node->driver, atoi(evt->data));
         return true;
     }
 
     return false;
 }
 
-void node_switch_init(Switch* device, char code) {
-    switch_init(device);
+void to_string(void* node, char* buff, uint16_t* offset) {
+    VescNode* _node = (VescNode*)node;
 
-    SwitchNode* node = malloc(sizeof(SwitchNode));
+    *offset += sprintf(&buff[*offset], "{\"code\":\"%c\",\"type\":\"vesc\"}", _node->code);
+}
+
+void node_vesc_init(VescDriver* dev, char code) {
+    vesc_init(dev);
+
+    VescNode* node = malloc(sizeof(VescNode));
     node->code = code;
-    node->driver = device;
+    node->driver = dev;
 
+    // TODO: put this in a linked list so we can dealloc memory (dd)
     NodeDescription* des = malloc(sizeof(NodeDescription));
 
     des->node = (void*)node;
@@ -97,3 +115,4 @@ void node_switch_init(Switch* device, char code) {
 
     register_node(des);
 }
+

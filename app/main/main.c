@@ -8,18 +8,18 @@
 
 PIDDef pid = {
     .min = 0.0,
-    .max = 5000000.0,         // same as window_size
-    .sample_time = 1000000,   // 1s in us
+    .max = 1000.0,         // same as window_size
+    .sample_time = 500.0,      // 1s in ms
 
-    .kp = 850.0,
-    .ki = 0.5,
-    .kd = 0.1
+    .kp = 300.0,
+    .ki = 50.0,
+    .kd = 600.0
 };
 
 TempController x_axis = {
-    .pin_cs = 32,
-    .pin_relay = 13,
-    .window_size = 5000000,   // 5s in us
+    .pin_cs = 4,
+    .pin_relay = 14,
+    .window_size = 1000.0,      // 5s in ms
     .pid = &pid
 };
 
