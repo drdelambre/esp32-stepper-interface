@@ -3,8 +3,6 @@
 #include "storage.h"
 #include "spi.h"
 #include "node_temp.h"
-#include "temp_controller.h"
-#include "pid.h"
 
 void app_main() {
     initNVR();
