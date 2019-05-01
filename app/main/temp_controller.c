@@ -77,7 +77,7 @@ void temp_update_task() {
                     data->m_window_start += data->window_size;
                 }
 
-                if (data->m_output > 100.0 && data->m_output > now - data->m_window_start) {
+                if (data->m_output > now - data->m_window_start) {
                     if (!data->m_active) {
                         data->m_active = true;
                         xSemaphoreGive(data->m_change);
@@ -113,13 +113,10 @@ void temp_set_temp(TempController* tmp, double target) {
 
     tmp->m_target = target;
 
-    tmp->m_has_hit = false;
-
-    if (tmp->m_enabled) {
-        return;
-    }
-
     tmp->m_enabled = 1;
+    tmp->m_has_hit = false;
+    tmp->pid->m_last_input = tmp->m_current;
+    tmp->pid->m_last_time = esp_timer_get_time() / 1000.0;
     tmp->m_window_start = esp_timer_get_time() / 1000.0;
 }
 

@@ -41,6 +41,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#define PID_WINDOW  1000.0
+
 void process_interrupt_task(void *pvParam) {
     TempNode* node = (TempNode *)pvParam;
 
@@ -168,7 +170,18 @@ bool handle(esp_mqtt_event_handle_t evt, char* prefix, void* node) {
     return false;
 }
 
-void node_temp_init(TempController* temp, char code) {
+void node_temp_init(uint16_t cs_pin, uint16_t relay_pin, char code) {
+    TempController *temp = malloc(sizeof(TempController));
+    temp->pin_cs = cs_pin;
+    temp->pin_relay = relay_pin;
+    temp->window_size = PID_WINDOW;
+
+    temp->pid = malloc(sizeof(PIDDef));
+    temp->pid->min = 0.0;
+    temp->pid->max = PID_WINDOW;
+    temp->pid->POn = P_ON_E;
+    temp->pid->sample_time = 100.0;
+
     temp_init(temp);
 
     TempNode* node = malloc(sizeof(TempNode));

@@ -38,7 +38,6 @@ void pid_calculate(double current, double target, double* output, PIDDef* def) {
     }
 
     out += def->m_sum - def->kd * diff_input;
-
     if (out > def->max) {
         out = def->max;
     } else if (out < def->min) {
@@ -52,26 +51,35 @@ void pid_calculate(double current, double target, double* output, PIDDef* def) {
 }
 
 void pid_tune(double kp, double ki, double kd, POMSwitch pon, PIDDef* def) {
-    if (kp < 0 || ki < 0 || kd < 0) {
-        return;
-    }
-
-    ESP_LOGI("PID", "Tuned: [%f, %f, %f]", kp, ki, kd);
-
     def->POn = pon;
 
     double sample_time_sec = def->sample_time / 1000.0;
 
     def->kp = kp;
-    def->ki = ki * sample_time_sec;
-    def->kd = kd / sample_time_sec;
+
+    if (ki == 0.0) {
+        def->ki = ki;
+    } else {
+        def->ki = ki * sample_time_sec;
+    }
+
+    if (kd == 0.0) {
+        def->kd = kd;
+    } else {
+        def->kd = kd / sample_time_sec;
+    }
 }
 
 void pid_sample_rate(uint32_t sample_time, PIDDef* def) {
     double sample_time_ratio = (double)sample_time / (double)def->sample_time;
 
-    def->ki *= sample_time_ratio;
-    def->kd /= sample_time_ratio;
+    if (def->ki != 0.0) {
+        def->ki *= sample_time_ratio;
+    }
+
+    if (def->kd != 0.0) {
+        def->kd /= sample_time_ratio;
+    }
 
     def->sample_time = sample_time;
 }

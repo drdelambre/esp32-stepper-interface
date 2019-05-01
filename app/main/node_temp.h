@@ -52,7 +52,7 @@ typedef struct temp_node {
     TaskHandle_t m_conn2;
 } TempNode;
 
-void node_temp_init(TempController* con, char code);
+void node_temp_init(uint16_t cs_pin, uint16_t relay_pin, char code);
 
 #ifdef __cplusplus
 }

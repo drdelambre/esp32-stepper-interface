@@ -3,8 +3,8 @@
 #include "esp_system.h"
 
 typedef enum {
-    P_ON_M,
-    P_ON_E
+    P_ON_E,
+    P_ON_M
 } POMSwitch;
 
 typedef struct piddef {
